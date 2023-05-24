@@ -1,0 +1,54 @@
+import "dart:async";
+import "package:shared_preferences/shared_preferences.dart";
+import 'package:webpoint/constant/Constants.dart';
+import 'package:webpoint/view_object/common/ValueHolder.dart';
+
+class PsSharedPreferences {
+  PsSharedPreferences() {
+    futureShared = SharedPreferences.getInstance();
+    futureShared?.then((SharedPreferences shared) {
+      this.shared = shared;
+      loadValueHolder();
+    });
+  }
+
+  Future<SharedPreferences>? futureShared;
+  SharedPreferences? shared;
+
+// Singleton instance
+  static final PsSharedPreferences _singleton = PsSharedPreferences();
+
+  // Singleton accessor
+  static PsSharedPreferences? get instance => _singleton;
+
+  final StreamController<ValueHolder> _valueController =
+      StreamController<ValueHolder>();
+
+  Stream<ValueHolder>? get valueHolder => _valueController.stream;
+
+  void loadValueHolder() {
+    final String? title = shared!.getString(Const.VALUE_HOLDER_TITLE);
+    final int? id = shared!.getInt(Const.VALUE_HOLDER_ID);
+    final int? userId = shared!.getInt(Const.VALUE_HOLDER_USER_ID);
+    final String? body = shared!.getString(Const.VALUE_HOLDER_BODY);
+
+    final ValueHolder valueHolder = ValueHolder(
+      body: body,
+      id: id,
+      title: title,
+      userId: userId,
+    );
+
+    _valueController.add(valueHolder);
+  }
+
+  Future<dynamic> replaceUserId(String loginUserId) async {
+    await shared!.setString(Const.VALUE_HOLDER_USER_ID, loginUserId);
+
+    loadValueHolder();
+  }
+
+  String? getUserId() {
+    return shared!.getString(Const.VALUE_HOLDER_USER_ID);
+  }
+}
