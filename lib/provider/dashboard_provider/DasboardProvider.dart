@@ -6,15 +6,15 @@ import 'package:webpoint/provider/common/ps_provider.dart';
 import 'package:webpoint/repository/DashboardRepository.dart';
 import 'package:webpoint/utils/Utils.dart';
 import 'package:webpoint/view_object/common/ValueHolder.dart';
-import 'package:webpoint/view_object/response/DashboardResponseData.dart';
+import 'package:webpoint/view_object/response/DashboardResponse.dart';
 
 class DashboardProvider extends Provider {
   DashboardProvider({this.dashboardRepository, this.valueHolder, int limit = 0})
       : super(dashboardRepository!, limit) {
     streamControllerDashboardResponse =
-        StreamController<Resources<List<DashboardResponseData>>>.broadcast();
+        StreamController<Resources<List<DashboardResponse>>>.broadcast();
     subscriptionDashboardResponse = streamControllerDashboardResponse!.stream
-        .listen((Resources<List<DashboardResponseData>> resource) {
+        .listen((Resources<List<DashboardResponse>> resource) {
       if (resource.status != Status.BLOCK_LOADING &&
           resource.status != Status.PROGRESS_LOADING) {
         _dashboardResponse = resource;
@@ -30,20 +30,20 @@ class DashboardProvider extends Provider {
   DashboardRepository? dashboardRepository;
   ValueHolder? valueHolder;
 
-  Resources<List<DashboardResponseData>> _dashboardResponse =
-      Resources<List<DashboardResponseData>>(Status.NO_ACTION, "", null);
+  Resources<List<DashboardResponse>> _dashboardResponse =
+      Resources<List<DashboardResponse>>(Status.NO_ACTION, "", null);
 
-  Resources<List<DashboardResponseData>> get dashboardResponse =>
+  Resources<List<DashboardResponse>> get dashboardResponse =>
       _dashboardResponse;
 
-  StreamController<Resources<List<DashboardResponseData>>>?
+  StreamController<Resources<List<DashboardResponse>>>?
       streamControllerDashboardResponse;
-  StreamSubscription<Resources<List<DashboardResponseData>>>?
+  StreamSubscription<Resources<List<DashboardResponse>>>?
       subscriptionDashboardResponse;
 
-  Future<Resources<List<DashboardResponseData>>> doDashboardApiCall() async {
+  Future<Resources<List<DashboardResponse>>> doDashboardApiCall() async {
     bool isConnectedToInternet = await Utils.checkInternetConnectivity();
-    final Resources<List<DashboardResponseData>> psAppInfo =
+    final Resources<List<DashboardResponse>> psAppInfo =
         await dashboardRepository!.doDashboardApiCall(isConnectedToInternet);
 
     streamControllerDashboardResponse!.sink.add(psAppInfo);

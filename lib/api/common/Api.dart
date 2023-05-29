@@ -25,7 +25,6 @@ abstract class Api {
         final List<T> tList = <T>[];
         try{
           hashMap.forEach((dynamic data) {
-            Utils.cPrintRelease("Am i here $data");
             tList.add(obj.fromMap(data as dynamic) as T);
           });
         }
