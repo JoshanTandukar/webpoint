@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:webpoint/api/common/Status.dart';
@@ -6,6 +7,7 @@ import 'package:webpoint/config/CustomColors.dart';
 import 'package:webpoint/constant/Dimens.dart';
 import 'package:webpoint/provider/dashboard_provider/DasboardProvider.dart';
 import 'package:webpoint/repository/DashboardRepository.dart';
+import 'package:webpoint/ui/PlaceHolderItem.dart';
 import 'package:webpoint/utils/Utils.dart';
 import 'package:webpoint/view_object/common/ValueHolder.dart';
 
@@ -46,13 +48,18 @@ class DashboardViewState extends State<DashboardView> {
     return SafeArea(
       top: true,
       child: Scaffold(
-        backgroundColor: CustomColors.baseColor,
+        backgroundColor: CustomColors.white,
         appBar: AppBar(
+          systemOverlayStyle: const SystemUiOverlayStyle(
+            statusBarColor: Colors.white,
+            statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
+            statusBarBrightness: Brightness.light, // For iOS (dark icons)
+          ),
           toolbarHeight: kToolbarHeight.h,
           automaticallyImplyLeading: true,
-          backgroundColor: CustomColors.baseColor,
+          backgroundColor: CustomColors.white,
           iconTheme: IconThemeData(
-            color: CustomColors.baseColor,
+            color: CustomColors.white,
           ),
           titleSpacing: 0,
           title: Text(
@@ -86,10 +93,28 @@ class DashboardViewState extends State<DashboardView> {
               return Container(
                 width: MediaQuery.of(context).size.width.w,
                 height: MediaQuery.of(context).size.height.h,
-                color:
-                    dashboardProvider.dashboardResponse.status == Status.SUCCESS
-                        ? CustomColors.callAcceptColor
-                        : CustomColors.callDeclineColor,
+                alignment: Alignment.topCenter,
+                child: dashboardProvider.dashboardResponse.status ==
+                        Status.SUCCESS
+                    ? ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount:
+                            dashboardProvider.dashboardResponse.data?.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return PlaceHolderItem(
+                            dashboardResponse: dashboardProvider
+                                .dashboardResponse.data![index],
+                          );
+                        },
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        padding: EdgeInsets.fromLTRB(
+                          Dimens.space0.w,
+                          Dimens.space0.h,
+                          Dimens.space0.w,
+                          Dimens.space0.h,
+                        ),
+                      )
+                    : Container(),
               );
             },
           ),

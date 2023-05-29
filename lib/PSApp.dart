@@ -21,7 +21,7 @@ class PSApp extends StatelessWidget {
         ...providers,
       ],
       child: DevicePreview(
-        enabled: true,
+        enabled: false,
         builder: (context) => ScreenUtilInit(
           designSize: const Size(414, 896),
           minTextAdapt: true,
