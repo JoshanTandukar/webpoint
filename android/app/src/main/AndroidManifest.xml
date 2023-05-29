@@ -1,17 +1,30 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.webpoint.io.webpoint">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="webpoint"
-        android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+       android:name="${applicationName}"
+       android:allowBackup="false"
+       android:fullBackupContent="false"
+       android:hardwareAccelerated="true"
+       android:icon="@mipmap/ic_launcher"
+       android:label="WebPoint"
+       android:requestLegacyExternalStorage="true"
+       android:launchMode="singleTop"
+       tools:replace="android:label">
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            android:launchMode="singleTop"
-            android:theme="@style/LaunchTheme"
+            android:showOnLockScreen="true"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
-            android:windowSoftInputMode="adjustResize">
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:showWhenLocked="true"
+            android:theme="@style/LaunchTheme"
+            android:turnScreenOn="true"
+            android:windowSoftInputMode="adjustResize"
+            tools:targetApi="o_mr1"
+            android:exported="true">
             <!-- Specifies an Android theme to apply to this Activity as soon as
                  the Android process has started. This theme is visible to the user
                  while the Flutter UI initializes. After that, this theme continues

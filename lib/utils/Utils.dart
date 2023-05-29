@@ -1,10 +1,11 @@
 import "dart:io";
 
 import "package:easy_localization/easy_localization.dart";
-import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
-import "package:flutter/services.dart";
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import "package:internet_connection_checker/internet_connection_checker.dart";
+import 'package:webpoint/constant/Dimens.dart';
 
 class Utils {
   Utils._();
@@ -36,7 +37,7 @@ class Utils {
   }
 
   static Future<Stream<InternetConnectionStatus>>
-  checkInternetConnectivityStatus() async {
+      checkInternetConnectivityStatus() async {
     return InternetConnectionChecker().onStatusChange;
   }
 
@@ -54,5 +55,38 @@ class Utils {
 
   static double getBottomNotchHeight(BuildContext context) {
     return MediaQuery.of(context).padding.bottom;
+  }
+
+  static Future<void> showToastMessage(String message) async {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      backgroundColor: Colors.black,
+      textColor: Colors.white,
+      fontSize: Dimens.space14.sp,
+    );
+  }
+
+  static Future<void> cPrintRelease(String object) async {
+    const int defaultPrintLength = 1020;
+    if (object.length <= defaultPrintLength) {
+      print(object);
+    } else {
+      final String log = object;
+      int start = 0;
+      int endIndex = defaultPrintLength;
+      final int logLength = log.length;
+      int tmpLogLength = log.length;
+      while (endIndex < logLength) {
+        print(log.substring(start, endIndex));
+        endIndex += defaultPrintLength;
+        start += defaultPrintLength;
+        tmpLogLength -= defaultPrintLength;
+      }
+      if (tmpLogLength > 0) {
+        print(log.substring(start, logLength));
+      }
+    }
   }
 }

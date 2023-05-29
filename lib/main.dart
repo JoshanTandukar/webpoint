@@ -4,7 +4,6 @@ import "package:easy_localization/easy_localization.dart";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:webpoint/PSApp.dart";
-import "package:webpoint/view_object/common/Language.dart";
 import 'package:webpoint/config/Config.dart';
 
 Future<void> main() async {
@@ -19,8 +18,6 @@ Future<void> main() async {
   // if (kDebugMode) {
   //   Stetho.initialize();
   // }
-
-  // AwesomeNotificationInit.awesomeNotificationInit();
 
   FlutterError.onError = (FlutterErrorDetails details) {
     Zone.current.handleUncaughtError(details.exception, details.stack!);
@@ -45,7 +42,7 @@ Future<void> main() async {
     path: "assets/langs",
     supportedLocales: getSupportedLanguages(),
     child: EasyDynamicThemeWidget(
-      child: PSApp(),
+      child: const PSApp(),
     ),
   );
 
@@ -59,8 +56,8 @@ Future<void> main() async {
 
 List<Locale> getSupportedLanguages() {
   final List<Locale> localeList = <Locale>[];
-  for (final Language lang in Config.psSupportedLanguageMap.values.toList()) {
-    localeList.add(Locale(lang.languageCode!, lang.countryCode));
-  }
+  Config.psSupportedLanguageMap.values.toList().forEach((element) {
+    localeList.add(Locale(element.languageCode!, element.countryCode));
+  });
   return localeList;
 }

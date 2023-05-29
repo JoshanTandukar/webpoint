@@ -1,3 +1,4 @@
+import 'package:webpoint/utils/Utils.dart';
 import "package:webpoint/view_object/common/Object.dart";
 
 class DashboardResponseData extends Object<DashboardResponseData> {
@@ -22,8 +23,8 @@ class DashboardResponseData extends Object<DashboardResponseData> {
   DashboardResponseData? fromMap(dynamic dynamicData) {
     if (dynamicData != null) {
       return DashboardResponseData(
-        id: dynamicData["id"],
-        userId: dynamicData["userId"],
+        id: dynamicData["id"] as int,
+        userId: dynamicData["userId"] as int,
         body: dynamicData["body"].toString(),
         title: dynamicData["title"].toString(),
       );
@@ -36,10 +37,10 @@ class DashboardResponseData extends Object<DashboardResponseData> {
   Map<String, dynamic>? toMap(DashboardResponseData? object) {
     if (object != null) {
       final Map<String, dynamic> data = <String, dynamic>{};
-      data["id"] = id;
-      data["userId"] = userId;
-      data["body"] = body;
-      data["title"] = title;
+      data["id"] = object.id;
+      data["userId"] = object.userId;
+      data["body"] = object.body;
+      data["title"] = object.title;
       return data;
     } else {
       return null;

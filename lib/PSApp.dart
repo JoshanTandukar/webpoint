@@ -1,5 +1,4 @@
-import "dart:convert";
-
+import 'package:device_preview/device_preview.dart';
 import "package:easy_dynamic_theme/easy_dynamic_theme.dart";
 import "package:easy_localization/easy_localization.dart";
 import "package:flutter/material.dart";
@@ -12,6 +11,8 @@ import 'package:webpoint/config/CustomColors.dart';
 import 'package:webpoint/provider/ps_provider_dependencies.dart';
 
 class PSApp extends StatelessWidget {
+  const PSApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     CustomColors.loadColor(context);
@@ -19,20 +20,14 @@ class PSApp extends StatelessWidget {
       providers: <SingleChildWidget>[
         ...providers,
       ],
-      child: ScreenUtilInit(
-        designSize: const Size(414, 896),
-        minTextAdapt: true,
-        splitScreenMode: true,
-        builder: (child, __) {
-          return GestureDetector(
-            onTap: () {
-              final currentFocus = FocusScope.of(context);
-              if (!currentFocus.hasPrimaryFocus &&
-                  currentFocus.focusedChild != null) {
-                FocusManager.instance.primaryFocus!.unfocus();
-              }
-            },
-            child: MaterialApp(
+      child: DevicePreview(
+        enabled: true,
+        builder: (context) => ScreenUtilInit(
+          designSize: const Size(414, 896),
+          minTextAdapt: true,
+          splitScreenMode: true,
+          builder: (child, __) {
+            return MaterialApp(
               debugShowCheckedModeBanner: false,
               title: "Web Point Demo",
               theme: ThemeData.light(),
@@ -50,53 +45,13 @@ class PSApp extends StatelessWidget {
               builder: (BuildContext? context, Widget? child) {
                 return MediaQuery(
                   data: MediaQuery.of(context!).copyWith(textScaleFactor: 1),
-                  child: AppBuilder(
-                    builder: (context) {
-                      return child!;
-                    },
-                  ),
+                  child: child!,
                 );
               },
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
-  }
-}
-
-class AppBuilder extends StatefulWidget {
-  final Widget Function(BuildContext)? builder;
-
-  const AppBuilder({super.key, this.builder});
-
-  @override
-  AppBuilderState createState() => AppBuilderState();
-
-  static AppBuilderState? of(BuildContext context) {
-    return context.findAncestorStateOfType<AppBuilderState>();
-  }
-}
-
-class AppBuilderState extends State<AppBuilder> with WidgetsBindingObserver {
-  @override
-  void initState() {
-    WidgetsBinding.instance.addObserver(this);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return widget.builder!(context);
-  }
-
-  void rebuild() {
-    setState(() {});
   }
 }

@@ -6,4 +6,6 @@ class Const {
   static const String VALUE_HOLDER_BODY = "VALUE_HOLDER_BODY";
   static const String VALUE_HOLDER_USER_ID = "VALUE_HOLDER_USER_ID";
   static const String VALUE_HOLDER_TITLE = "VALUE_HOLDER_TITLE";
+
+  static const String THEME_IS_DARK_THEME = "THEME_IS_DARK_THEME";
 }

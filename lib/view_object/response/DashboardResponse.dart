@@ -1,3 +1,4 @@
+import 'package:webpoint/utils/Utils.dart';
 import "package:webpoint/view_object/common/Object.dart";
 import 'package:webpoint/view_object/response/DashboardResponseData.dart';
 
@@ -17,7 +18,7 @@ class DashboardResponse extends Object<DashboardResponse> {
   DashboardResponse? fromMap(dynamic dynamicData) {
     if (dynamicData != null) {
       return DashboardResponse(
-        list: DashboardResponseData().fromMapList(dynamicData["data"]),
+        list: DashboardResponseData().fromMapList(dynamicData),
       );
     } else {
       return null;
@@ -27,7 +28,7 @@ class DashboardResponse extends Object<DashboardResponse> {
   @override
   Map<String, dynamic>? toMap(DashboardResponse? object) {
     if (object != null) {
-      final Map<String, dynamic> data = <String, dynamic>{};
+      Map<String, dynamic> data = <String, dynamic>{};
       data["data"] = DashboardResponseData().toMapList(object.list);
       return data;
     } else {
@@ -37,6 +38,7 @@ class DashboardResponse extends Object<DashboardResponse> {
 
   @override
   List<DashboardResponse>? fromMapList(List<dynamic>? dynamicDataList) {
+    Utils.cPrintRelease("from map list $dynamicDataList");
     final List<DashboardResponse> psAppInfoList = <DashboardResponse>[];
     if (dynamicDataList != null) {
       for (final dynamic json in dynamicDataList) {
@@ -50,6 +52,8 @@ class DashboardResponse extends Object<DashboardResponse> {
 
   @override
   List<Map<String, dynamic>>? toMapList(List<dynamic>? objectList) {
+    Utils.cPrintRelease(
+        "To map List Dashboard Response ${objectList.toString()}");
     final List<dynamic> dynamicList = <dynamic>[];
     if (objectList != null) {
       for (final dynamic data in objectList) {

@@ -42,13 +42,43 @@ class PsSharedPreferences {
     _valueController.add(valueHolder);
   }
 
-  Future<dynamic> replaceUserId(String loginUserId) async {
-    await shared!.setString(Const.VALUE_HOLDER_USER_ID, loginUserId);
+  Future<dynamic> replaceUserId(String userID) async {
+    await shared!.setString(Const.VALUE_HOLDER_USER_ID, userID);
 
     loadValueHolder();
   }
 
   String? getUserId() {
     return shared!.getString(Const.VALUE_HOLDER_USER_ID);
+  }
+
+  Future<dynamic> replaceId(String id) async {
+    await shared!.setString(Const.VALUE_HOLDER_ID, id);
+
+    loadValueHolder();
+  }
+
+  String? getId() {
+    return shared!.getString(Const.VALUE_HOLDER_ID);
+  }
+
+  Future<dynamic> replaceBody(String body) async {
+    await shared!.setString(Const.VALUE_HOLDER_BODY, body);
+
+    loadValueHolder();
+  }
+
+  String? getBody() {
+    return shared!.getString(Const.VALUE_HOLDER_BODY);
+  }
+
+  Future<dynamic> replaceTitle(String title) async {
+    await shared!.setString(Const.VALUE_HOLDER_TITLE, title);
+
+    loadValueHolder();
+  }
+
+  String? getTitle() {
+    return shared!.getString(Const.VALUE_HOLDER_TITLE);
   }
 }

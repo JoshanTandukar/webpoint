@@ -126,7 +126,7 @@ class CustomColors {
   ///
   /// Light Theme
   ///
-  static const Color _l_base_color = Color(0xFFE6E6E6);
+  static const Color _l_base_color = Color(0xFFFFFFFF);
   static const Color _l_base_seconday_color = Color(0xFFECE6F2);
   static const Color _l_base_dark_color = Color(0xFFE5E5E5);
   static const Color _l_base_light_color = Color(0xFFF5F2F8);
@@ -154,7 +154,7 @@ class CustomColors {
   ///
   ///
   static const Color _d_expired_color = Color(0xffB099C9);
-  static const Color _d_base_color = Color(0xFF212121);
+  static const Color _d_base_color = Color(0xFF000000);
   static const Color _d_base_seconday_color = Color(0xFFECE6F2);
   static const Color _d_base_dark_color = Color(0xFFE5E5E5);
   static const Color _d_base_light_color = Color(0xFFF5F2F8);

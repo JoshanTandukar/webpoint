@@ -32,4 +32,10 @@ class Config {
     "da": Language(languageCode: "da", countryCode: "DK", name: "Danish"),
     "es": Language(languageCode: "es", countryCode: "ES", name: "Spanish"),
   };
+
+  /// Default Limit
+  static const int DEFAULT_LOADING_LIMIT = 20;
+
+  static const String baseApiPlaceHolder = "https://jsonplaceholder.typicode.com/posts";
+  static const String baseApiNewsHolder = "https://jsonplaceholder.typicode.com/posts";
 }

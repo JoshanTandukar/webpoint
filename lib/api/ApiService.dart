@@ -1,13 +1,13 @@
 import 'package:webpoint/api/common/Api.dart';
 import 'package:webpoint/api/common/Resources.dart';
-import 'package:webpoint/view_object/response/DashboardResponse.dart';
+import 'package:webpoint/view_object/response/DashboardResponseData.dart';
 
 class ApiService extends Api {
   ///
-  Future<Resources<DashboardResponse>> doFetchDashboardApiCall() async {
-    return doServerCallMutationWithoutAuth<DashboardResponse,
-        DashboardResponse>(
-      DashboardResponse(),
+  Future<Resources<List<DashboardResponseData>>>
+      doFetchDashboardApiCall() async {
+    return doServerCallGet<DashboardResponseData, List<DashboardResponseData>>(
+      DashboardResponseData(),
     );
   }
 }
